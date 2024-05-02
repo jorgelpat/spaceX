@@ -1,16 +1,29 @@
-const endpoint = "https://api.spacexdata.com/v4/crew"
+// const endpoint = "https://api.spacexdata.com/v4/crew"
+
+// const getMeh = async () => {
+//     const body = document?.querySelector('body');
+//     let htmlContent = "";
+  
+//     const clients = await (await fetch(`${endpoint}`)).json();
+  
+//     clients.forEach(element => {
+//       htmlContent += `<img src="${element.image}" referrerpolicy="no-referrer">`;
+//     });
+  
+//     body.innerHTML = htmlContent;
+// }
+
+// getMeh()
+
+const endpoint = "https://api.spacexdata.com/v4/crew";
 
 const getMeh = async () => {
-    const body = document?.querySelector('body');
-    let htmlContent = "";
-
-    const clients = await (await fetch(`${endpoint}`)).json();
-
-    clients.forEach(element => {
-      htmlContent += `<img src="${element.image}" referrerpolicy="no-referrer">`;
-    });
-
-    body.innerHTML = htmlContent;
+    const body = document.querySelector('body');
+  
+    const response = await fetch(endpoint);
+    const crewMembers = await response.json();
+  
+    body.innerHTML = crewMembers.map(member => `<img src="${member.image}" referrerpolicy="no-referrer">`).join('');
 }
 
-getMeh()
+getMeh();
