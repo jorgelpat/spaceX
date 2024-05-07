@@ -49,5 +49,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     // information__2.append(...progressSecondStageHeightRocket(Totales.composite_height, Rocket4));
 
     // information__3.innerHTML = rocketGeneralInformation([Rocket2]); // Pasamos un array con un solo cohete
-    information__1.innerHTML = rocketGeneralInformation([Rocket1]); // Pasamos un array con un solo cohete
+    information__1.innerHTML = rocketGeneralInformation([Rocket3]); // Pasamos un array con un solo cohete
 });
