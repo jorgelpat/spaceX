@@ -1,3 +1,5 @@
+
+// --------Obtener todas las misiones
 export const getAllMissions=async()=>{
     var requestOptions = {
         method: 'GET',
@@ -5,3 +7,4 @@ export const getAllMissions=async()=>{
       };
       fetch("https://api.spacexdata.com/v3/rockets", requestOptions)
 }
+
