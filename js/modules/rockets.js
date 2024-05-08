@@ -62,6 +62,11 @@ export const getAllRockets = async()=>{
     let res = await fetch("https://api.spacexdata.com/v4/rockets");
     let data = await res.json();
     return data;
+//     0: Object { height: {…}, diameter: {…}, name: "Falcon 1", … }
+// ​    1: Object { height: {…}, diameter: {…}, name: "Falcon 9", … }​
+//     2: Object { height: {…}, diameter: {…}, name: "Falcon Heavy", … }
+//     3: Object { height: {…}, diameter: {…}, name: "Starship", … }
+// ​    length: 4
 }
 
 export const getAllRocketsForId =async(id)=>{
@@ -92,6 +97,7 @@ export const getAllRocketsTotalMass = async()=>{
     let res = await fetch("https://api.spacexdata.com/v4/rockets/query", config);
     let {docs: [{mass} = maxMassRocket]} = await res.json();
     return mass;
+    // { kg: 30146, lb: 66460 }
 }
 
 export const getRocketPayloadTotalWeights = async() => {
@@ -211,11 +217,56 @@ export const getAllRocketEngineTotal = async () => {
     }
     let res = await fetch("https://api.spacexdata.com/v4/rockets/query", config);
     // console.log(await res.json());
-    let { docs: [{ engines } = maxEnginesRocket] } = await res.json();
+    let {docs: [{engines} = maxEnginesRocket]} = await res.json();
     return engines.thrust_sea_level;
     // { kN: 1780, lbf: 400000 }
 }
 
+export const getAllRocketEngineThrustVacuumTotal = async () => {
+    let config = {
+        headers: {
+            "content-type": "application/json"
+        },
+        method: "POST",
+        body: JSON.stringify({
+            "options": {
+                "select": {
+                    "engines": 1
+                },
+                "sort": {
+                    "engines.thrust_vacuum": "desc"
+                }
+            }
+        })
+    }
+    let res = await fetch("https://api.spacexdata.com/v4/rockets/query", config);
+    // console.log(await res.json());
+    let {docs: [{engines} = maxEnginesVacuumRocket]} = await res.json();
+    return engines.thrust_vacuum;
+    // { kN: 1960, lbf: 440000 }
+}
 
 
+export const getAllLandingLegs = async () => {
+    let config = {
+        headers: {
+            "content-type": "application/json"
+        },
+        method: "POST",
+        body: JSON.stringify({
+            "options": {
+                "select": {
+                    "landing_legs": 1
+                },
+                "sort": {
+                    "landing_legs.number": "desc"
+                }
+            }
+        })
+    };
+    let res = await fetch("https://api.spacexdata.com/v4/rockets/query", config);
+    let {docs: [{landing_legs} = {landing_legs: {number: 0}}]} = await res.json();
+    return landing_legs;
+    // { number: 12, material: "carbon fiber" }
+}
 
