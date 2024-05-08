@@ -1,4 +1,5 @@
-import { getRocketSecondStageCompositeFairingHeightTotal } from "./modules/rockets.js"
+import { getAllRocketEngineTotal } from "./modules/rockets.js"
+import { paginationRockets} from "./modulesComponents/pagination.js";
 
 
 // import { getAllRockets } from "./modules/rockets.js";
@@ -55,4 +56,6 @@ import { getRocketSecondStageCompositeFairingHeightTotal } from "./modules/rocke
 //     information__1.innerHTML = rocketGeneralInformation([Rocket3]); // Pasamos un array con un solo cohete
 // });
 
-console.log( await getRocketSecondStageCompositeFairingHeightTotal())
+let paginacion = document.querySelector("#paginacion");
+paginacion.innerHTML = "";
+paginacion.append(await paginationRockets());

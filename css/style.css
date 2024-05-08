@@ -28,7 +28,7 @@ body {
 }
 
 *::-webkit-scrollbar-thumb {
-    background-color: var(--color--one--rgba);
+    background-color: var(--color--one--rgba);  /*probando*/
 }
 
 .header__title {
@@ -38,6 +38,22 @@ body {
     justify-content: center;
     align-items: center;
     text-transform: uppercase;
+    /*edicion*/
+}
+.load{
+    background: linear-gradient(120deg, #ffffff0e 30%, #ffffff23 38%, #f0f0f032 40%, #e5e5e50c 40%);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    animation: load 2s infinite;
+    width: 100%;
+    margin: 12px 0;
+    height: 100px;
+}
+
+@keyframes load{
+    100%{
+        background-position: -100% 0;
+    }
 }
 
 .main {
@@ -72,7 +88,17 @@ body {
     display: flex;
     gap: 10px;
     margin: 0 var(--layout-description-container-x);
-    margin-bottom: var(--layout-description-container-y);
+    margin-bottom: var(--layout-description-container-y);   /*probando*/
+}
+
+.description__container div:last-child h3 {
+    color: var(--color--five);
+}
+.description__container div:last-child small,
+.description__container div:last-child a {
+    margin-top: 25px;
+    color: var(--color--two);
+    text-decoration: none;
 }
 
 .main__section {
@@ -89,7 +115,7 @@ body {
 }
 
 .section__information__1 {
-    background: red;
+    /* background: red; */
     grid-area: section__header;
     display: flex;
     overflow-x: auto;
@@ -100,11 +126,38 @@ body {
 .section__information__1>.carousel__item {
     /* flex: 1; */
     min-width: 24%;
-    background-color: purple;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: purple; */
+}
+
+.item__progress__bar {
+    color: var(--color--five);
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: radial-gradient(
+        closest-side, 
+        #1d1f38 85%, 
+        transparent 85% 100%), 
+        conic-gradient(var(--color--three) 
+        80%, 
+        transparent 0);  
+    transform: rotate(180deg); 
+}
+.progress__value{
+    display: flex;
+    flex-direction: column;
+    transform: rotate(180deg); 
 }
 
 .section__information__container {
-    background: #d9ff00;
+    /* background: #d9ff00; */
     grid-area: section__main;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -113,7 +166,7 @@ body {
 }
 
 .section__information__2 {
-    background: blue;
+    /* background: blue; */
     grid-area: colum__1;
     display: grid;
     grid-template-rows: 1fr 1.3fr;
@@ -123,7 +176,7 @@ body {
 }
 
 .section__information__2 div:first-child {
-    background: #d9ff00;
+    /* background: #d9ff00; */
     grid-area: carusel__colum__1;
     display: flex;
     overflow-x: auto;
@@ -134,21 +187,42 @@ body {
 .section__information__2 div:first-child>.carousel__item {
     /* flex: 1; */
     min-width: 48%;
-    background-color: purple;
+    /* background-color: purple; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .section__information__2 div:last-child {
-    background: darkblue;
+    /* background: darkblue; */
     grid-area: table__colum__1;
 }
 
 .section__image {
-    background: orange;
+    /* background: orange; */
     grid-area: colum__2;
+    display: flex;
+    overflow-x: auto;
+    align-items: center;
+    scroll-snap-type:x mandatory;
+}
+.section__image>.carousel__item {
+    /* background: violet; */
+    text-align: center;
+    margin: 0 10px;
+}
+.section__image>.carousel__item img {
+    width: 305px;
+    height: 190px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0px 0px 10px var(--color--one);
+    scroll-snap-align: center;
 }
 
+
 .section__information__3 {
-    background: violet;
+    /* background: violet; */
     grid-area: colum__3;
     display: grid;
     grid-template-rows: 1fr 1.3fr;
@@ -158,7 +232,7 @@ body {
 }
 
 .section__information__3 div:first-child {
-    background: #d9ff00;
+    /* background: #d9ff00; */
     grid-area: carusel__colum__2;
     display: flex;
     overflow-x: auto;
@@ -169,11 +243,14 @@ body {
 .section__information__3 div:first-child>.carousel__item {
     /* flex: 1; */
     min-width: 48%;
-    background-color: purple;
+    /* background-color: purple; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .section__information__3 div:last-child {
-    background: darkblue;
+    /* background: darkblue; */
     grid-area: table__colum__2;
 }
 
@@ -183,6 +260,8 @@ body {
     display: grid;
     grid-template-columns: 1fr 8fr 1fr;
     grid-template-areas: ". footer__menu .";
+    border-top-left-radius: 5em;
+    border-top-right-radius: 5em;
 }
 
 .footer ul {
@@ -221,6 +300,22 @@ body {
     align-items: center;
     height: 110px;
 }
+.buttom__paginacion {
+    display: inline-block;
+}
+.buttom__paginacion a {
+    color: var(--color--five);
+    text-decoration: none;
+    float: left;
+    padding: 8px 16px;
+}
+.buttom__paginacion a.activo {
+    background-color: var(--color--one);
+    color: var(--color--five);
+}
+.buttom__paginacion a:hover:not(.activo) {
+    background-color: var(--color--one--rgba);
+}
 
 .information__container {
     /* background: blue; */
@@ -228,11 +323,12 @@ body {
     gap: 5px;
     align-content: center;
     margin: 0 var(--layout-description-container-x);
-    margin-bottom: var(--layout-description-container-y);
+    margin-bottom: var(--layout-description-container-y); /*probar*/
 }
 
 .information__container div:first-child {
     width: 60%;
+    color: var(--color--five);
 }
 
 .information__container div:first-child progress {
@@ -241,12 +337,13 @@ body {
 
 .information__container div:last-child {
     /* background: red; */
+    color: var(--color--two);
     width: 40%;
     display: flex;
     align-items: flex-end;
 }
 
-.rocket__general img {
+/* .rocket__general img {
     width: 280px;
     height: 300px;
 }
@@ -258,4 +355,37 @@ body {
 }
 .rocket__general a{
     text-decoration: none;
+} */
+
+progress[value] {
+    --color: var(--color--three);
+    --background: var(--color--one--rgb);
+    background: var(--background);
+}
+
+
+progress[value] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    /* margin: 0 10px; */
+    height: .5em;
+    border-radius: 10em;
+}
+
+progress[value]::-webkit-progress-bar {
+    border-radius: 10em;
+    height: .5em;
+    background: var(--background);
+}
+
+progress[value]::-webkit-progress-value {
+    border-radius: 10em;
+    background: var(--color);
+}
+
+progress[value]::-moz-progress-bar {
+    border-radius: 10em;
+    background: var(--color);
 }
