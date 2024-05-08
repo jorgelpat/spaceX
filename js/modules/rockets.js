@@ -127,6 +127,7 @@ export const getRocketPayloadTotalWeights = async() => {
     data.sort((a,b)=> b.kg - a.kg );
     let [maxPayloadWeightsRocket] = data;
     return maxPayloadWeightsRocket;
+    // { id: "leo", name: "Low Earth Orbit", kg: 150000, lb: 330000 }
 }
 
 export const getAllRocketTotalHeight = async()=>{
@@ -149,6 +150,7 @@ export const getAllRocketTotalHeight = async()=>{
     let res = await fetch("https://api.spacexdata.com/v4/rockets/query", config);
     let {docs: [{diameter} = maxDiameterRocket]} = await res.json();
     return diameter;
+    // Undefined
 }
 
 export const getRocket_SecondStage_CompositeFairing_Diameter = async() => {
@@ -172,6 +174,7 @@ export const getRocket_SecondStage_CompositeFairing_Diameter = async() => {
     let {docs: [maxDiameterCompositeFairingRocket]} = await res.json();
     let {second_stage: {payloads: {composite_fairing: {diameter}}}} = maxDiameterCompositeFairingRocket
     return diameter;
+    // { meters: 5.2, feet: 17.1 }
 }
 
 
@@ -196,6 +199,7 @@ export const getRocket_SecondStage_Payloads_CompositeFairing_Height = async () =
     let {docs: [maxHeightCompositeFairingRocket]} = await res.json();
     let {second_stage: {payloads: {composite_fairing: {height}}}} = maxHeightCompositeFairingRocket
     return height;
+    // { meters: 13.1, feet: 43 }
 }
 
 export const getAllRocketEngineTotal = async () => {
@@ -268,5 +272,28 @@ export const getAllLandingLegs = async () => {
     let {docs: [{landing_legs} = {landing_legs: {number: 0}}]} = await res.json();
     return landing_legs;
     // { number: 12, material: "carbon fiber" }
+}
+
+export const getSuccessRate=async()=>{
+    let config={
+        headers:{
+            "content-type":"application/json"
+        },
+        method:"POST",
+        body: JSON.stringify({
+            "options":{
+                "select":{
+                    "success_rate_pct":1
+                },
+                "sort":{
+                    success_rate_pct:"desc"
+                }
+            }
+        })
+    };
+    let res = await fetch("https://api.spacexdata.com/v4/rockets/query", config);
+    let {docs: [{success_rate_pct} = {success_rate_pct: {number: 0}}]} = await res.json();
+    return success_rate_pct;
+    // 100
 }
 
