@@ -1,3 +1,6 @@
+import { getAllRocketEngineTotal } from "./modules/rockets.js"
+
+
 // import { getAllRockets } from "./modules/rockets.js";
 // import { rocketGeneralInformation } from "./modulesComponents/box.js";
 // import { 
@@ -51,3 +54,5 @@
     // information__3.innerHTML = rocketGeneralInformation([Rocket2]); // Pasamos un array con un solo cohete
 //     information__1.innerHTML = rocketGeneralInformation([Rocket3]); // Pasamos un array con un solo cohete
 // });
+
+console.log( await getAllRocketEngineTotal())
