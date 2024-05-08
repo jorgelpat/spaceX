@@ -213,6 +213,9 @@ export const getAllRocketEngineTotal = async () => {
     // console.log(await res.json());
     let { docs: [{ engines } = maxEnginesRocket] } = await res.json();
     return engines.thrust_sea_level;
+    // { kN: 1780, lbf: 400000 }
 }
+
+
 
 
