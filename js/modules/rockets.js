@@ -1,38 +1,38 @@
-export const getAllRockets = async ()=>{
-    let res = await fetch("https://api.spacexdata.com/v4/rockets")
-    let data = await res.json();
-    let listMass = [], 
-        listPayloadWeights = [], 
-        heightRocket = [], 
-        listDiameter = [], 
-        listaDiameterComposite = [],
-        listaHeightComposite = [];
+// export const getAllRockets = async ()=>{
+//     let res = await fetch("https://api.spacexdata.com/v4/rockets")
+//     let data = await res.json();
+//     let listMass = [], 
+//         listPayloadWeights = [], 
+//         heightRocket = [], 
+//         listDiameter = [], 
+//         listaDiameterComposite = [],
+//         listaHeightComposite = [];
 
-    data.forEach((val, id) => {
-        listMass.push(val.mass.kg);
-        listPayloadWeights.push(...val.payload_weights)
-        heightRocket.push(val.height)
-        listDiameter.push(val.diameter)
-        listaDiameterComposite.push(val.second_stage.payloads.composite_fairing.diameter)
-        listaHeightComposite.push(val.second_stage.payloads.composite_fairing.height)
-    });
+//     data.forEach((val, id) => {
+//         listMass.push(val.mass.kg);
+//         listPayloadWeights.push(...val.payload_weights)
+//         heightRocket.push(val.height)
+//         listDiameter.push(val.diameter)
+//         listaDiameterComposite.push(val.second_stage.payloads.composite_fairing.diameter)
+//         listaHeightComposite.push(val.second_stage.payloads.composite_fairing.height)
+//     });
     
-    listMass.sort((a,b) => b - a)
-    listPayloadWeights.sort((a,b) => b.kg - a.kg)
-    heightRocket.sort((a,b) => b.meters - a.meters)
-    listDiameter.sort((a,b) => b.meters - a.meters)
-    listaDiameterComposite.sort((a,b) => b.meters - a.meters)
-    listaHeightComposite.sort((a,b) => b.meters - a.meters)
-    data.push({
-        kg_max: listMass.shift(), 
-        payload_weights: listPayloadWeights.shift().kg,
-        height: heightRocket.shift().meters,
-        diameter: listDiameter.shift().meters,
-        composite_diameter : listaDiameterComposite.shift().meters,
-        composite_height: listaHeightComposite.shift().meters
-    });
-    return data;
-}                   
+//     listMass.sort((a,b) => b - a)
+//     listPayloadWeights.sort((a,b) => b.kg - a.kg)
+//     heightRocket.sort((a,b) => b.meters - a.meters)
+//     listDiameter.sort((a,b) => b.meters - a.meters)
+//     listaDiameterComposite.sort((a,b) => b.meters - a.meters)
+//     listaHeightComposite.sort((a,b) => b.meters - a.meters)
+//     data.push({
+//         kg_max: listMass.shift(), 
+//         payload_weights: listPayloadWeights.shift().kg,
+//         height: heightRocket.shift().meters,
+//         diameter: listDiameter.shift().meters,
+//         composite_diameter : listaDiameterComposite.shift().meters,
+//         composite_height: listaHeightComposite.shift().meters
+//     });
+//     return data;
+// }                   
 
 
 
@@ -57,3 +57,70 @@ export const getAllRockets = async ()=>{
 //         throw error; // Re-throw the error to be handled elsewhere
 //     }
 // }
+
+export const getAllRockets = async()=>{
+    let res = await fetch("https://api.spacexdata.com/v4/rockets");
+    let data = await res.json();
+    return data;
+}
+
+export const getAllRocketsForId =async(id)=>{
+    let res = await fetch(`https://api.spacexdata.com/v4/rockets/${id}`);
+    let data = await res.json();
+    return data;
+}
+
+export const getAllRocketsTotalMass = async()=>{
+    let config = {
+        headers: {
+            "content-type": "aplication/json"
+        },
+        method: "POST",
+        body: JSON.stringify({
+            "options": {
+                "select": {
+                    "name": 1,
+                    "mass": 1
+                },
+                "sort": {
+                    "mass.kg": "desc"
+                },
+                "limit": 1
+            }
+        })
+    }
+    let res = await fetch("https://api.spacexdata.com/v4/rockets/query", config);
+    let {docs: [{mass} = maxMassRocket]} = await res.json();
+    return mass;
+}
+
+export const getRocketPayloadTotalWeights = async() => {
+    let config = {
+        headers: {
+            "content-type": "application/json"
+        },
+        method: "POST",
+        body: JSON.stringify({
+            "options": {
+                "select": {
+                    "name": 1,
+                    "payload_weights": 1
+                },
+                "sort": {
+                    "payload_weights.kg": "desc"
+                },
+            }
+        })
+    }
+    let res = await fetch("https://api.spacexdata.com/v4/rockets/query", config);
+    let {docs} = await res.json();
+    let data = []
+    docs.forEach(val => {
+        data.push(...val.payload_weights)
+    });
+    data.sort((a,b)=> b.kg - a.kg );
+    let [maxPayloadWeightsRocket] = data;
+    return maxPayloadWeightsRocket;
+}
+
+
