@@ -1,4 +1,4 @@
-import { getSuccessRate } from "./modules/rockets.js"
+import { getRocketSecondStageCompositeFairingHeightTotal } from "./modules/rockets.js"
 
 
 // import { getAllRockets } from "./modules/rockets.js";
@@ -55,4 +55,4 @@ import { getSuccessRate } from "./modules/rockets.js"
 //     information__1.innerHTML = rocketGeneralInformation([Rocket3]); // Pasamos un array con un solo cohete
 // });
 
-console.log( await getSuccessRate())
+console.log( await getRocketSecondStageCompositeFairingHeightTotal())
