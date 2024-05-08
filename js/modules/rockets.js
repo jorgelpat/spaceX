@@ -123,4 +123,50 @@ export const getRocketPayloadTotalWeights = async() => {
     return maxPayloadWeightsRocket;
 }
 
+export const getAllRocketTotalHeight = async()=>{
+    let config = {
+        headers: {
+            "content-type": "application/json"
+        },
+        method: "POST",
+        body: JSON.stringify({
+            "options": {
+                "select": {
+                    "height": 1
+                },
+                "sort": {
+                    "height.meters": "desc"
+                },
+            }
+        })
+    }
+    let res = await fetch("https://api.spacexdata.com/v4/rockets/query", config);
+    let {docs: [{diameter} = maxDiameterRocket]} = await res.json();
+    return diameter;
+}
+
+export const getRocket_SecondStage_CompositeFairing_Diameter = async() => {
+    let config = {
+        headers: {
+            "content-type": "application/json"
+        },
+        method: "POST",
+        body: JSON.stringify({
+            "options": {
+                "select": {
+                    "second_stage.payloads.composite_fairing.diameter": 1
+                },
+                "sort": {
+                    "second_stage.payloads.composite_fairing.diameter": "desc"
+                }
+            }
+        })
+    }
+    let res = await fetch("https://api.spacexdata.com/v4/rockets/query", config);
+    let {docs: [maxDiameterCompositeFairingRocket]} = await res.json();
+    let {second_stage: {payloads: {composite_fairing: {diameter}}}} = maxDiameterCompositeFairingRocket
+    return diameter;
+}
+
+
 
